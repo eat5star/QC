@@ -1,0 +1,575 @@
+EXP : 01
+
+OPENQASM 2.0;
+include "qelib1.inc";
+qreg q[1];
+creg c[1];
+h q[0];
+x q[0];
+measure q[0] -> c[0];
+
+//////////////////
+
+EXP : 02
+
+OPENQASM 2.0;
+include "qelib1.inc";
+qreg q[2];
+creg c[2];
+h q[0];
+cx q[0], q[1];
+measure q[0] -> c[0];
+measure q[1] -> c[1];
+
+/////////////////
+
+EXP : 03
+
+OPENQASM 2.0;
+include "qelib1.inc";
+qreg q[1];
+creg c[1];
+x q[0];
+y q[0];
+z q[0];
+measure q[0] -> c[0];
+
+////////////////
+
+EXP : 04
+
+# EXP4 BELL STATE
+
+
+!pip install qiskit
+!pip install qiskit_ibm_runtime
+!pip install qiskit_aer
+!pip install pylatexenc
+
+from qiskit import QuantumCircuit
+from qiskit.visualization import circuit_drawer
+
+# Define a function to create each Bell state circuit
+def create_bell_state(state_name):
+    qc = QuantumCircuit(2, 2)  # 2 qubits, 2 classical bits
+
+    if state_name == "Φ+":
+        qc.h(0)  # Hadamard gate on qubit 0
+        qc.cx(0, 1)  # CNOT gate
+
+    elif state_name == "Ψ+":
+        qc.x(1)  # Pauli-X gate on qubit 1
+        qc.h(0)  # Hadamard gate on qubit 0
+        qc.cx(0, 1)  # CNOT gate
+
+    elif state_name == "Φ-":
+        qc.x(0)  # Pauli-X gate on qubit 0
+        qc.h(0)  # Hadamard gate on qubit 0
+        qc.cx(0, 1)  # CNOT gate
+
+    elif state_name == "Ψ-":
+        qc.x(0)  # Pauli-X gate on qubit 0
+        qc.x(1)  # Pauli-X gate on qubit 1
+        qc.h(0)  # Hadamard gate on qubit 0
+        qc.cx(0, 1)  # CNOT gate
+
+    # Measure qubits
+    qc.measure([0, 1], [0, 1])
+    return qc
+
+# Define the four Bell states
+bell_states = ["Φ+", "Ψ+", "Φ-", "Ψ-"]
+
+# Generate and visualize each Bell state circuit
+for state in bell_states:
+    print(f"\n### {state} Bell State ###")
+    qc = create_bell_state(state)
+    display(qc.draw("mpl"))  # Draw the circuit without execution
+
+////////////////
+
+from qiskit import QuantumCircuit,transpile
+from qiskit_aer import AerSimulator
+from qiskit.visualization import plot_histogram
+import matplotlib.pyplot as plt
+
+//12
+
+qc = QuantumCircuit(3, 1)
+qc.rx(0.1, 0)
+qc.rx(0.5, 0)
+qc.h(2)
+qc.cy(1,2)
+qc.cx(1, 0)
+qc.measure(0, 0)
+qc.draw('mpl')
+
+
+
+///13
+from qiskit import QuantumCircuit,transpile
+from qiskit_aer import AerSimulator
+from qiskit.visualization import plot_histogram
+import matplotlib.pyplot as plt
+qc=QuantumCircuit(3,3)
+qc.h(0)
+qc.x(1)
+qc.h(2)
+qc.cx(0,1)
+qc.y(0)
+qc.t(1)
+qc.z(2)
+qc.cx(2,1)
+qc.measure(0,0)
+qc.measure(1,1)
+qc.measure(2,2)
+qc.draw('mpl')
+
+
+//14
+
+from qiskit import QuantumCircuit,transpile
+from qiskit_aer import AerSimulator
+from qiskit.visualization import plot_histogram
+import matplotlib.pyplot as plt
+qc=QuantumCircuit(2,2)
+qc.h(0)
+qc.h(1)
+qc.cx(0,1)
+qc.h(0)
+qc.h(1)
+qc.measure(0,0)
+qc.measure(1,1)
+qc.draw('mpl')
+
+//15
+
+from qiskit import QuantumCircuit,transpile
+from qiskit_aer import AerSimulator
+from qiskit.visualization import plot_histogram
+import matplotlib.pyplot as plt
+qc=QuantumCircuit(3,3)
+qc.h(0)
+qc.x(1)
+qc.h(2)
+qc.cx(0,1)
+qc.y(0)
+qc.t(1)
+qc.z(2)
+qc.cx(2,1)
+qc.measure(0,0)
+qc.measure(1,1)
+qc.measure(2,2)
+qc.draw('mpl')
+
+//16
+
+from qiskit import QuantumCircuit,transpile
+from qiskit_aer import AerSimulator
+from qiskit.visualization import plot_histogram
+import matplotlib.pyplot as plt
+qc=QuantumCircuit(4,4)
+qc.h(0)
+qc.h(1)
+qc.h(2)
+qc.h(3)
+qc.z(3)
+qc.cx(0,3)
+qc.h(0)
+qc.cx(1,3)
+qc.h(1)
+qc.cx(2,3)
+qc.measure(0,0)
+
+qc.h(2)
+qc.h(3)
+
+qc.measure(1,1)
+qc.measure(2,2)
+qc.draw('mpl')
+
+//17
+
+from qiskit import QuantumCircuit,transpile
+from qiskit_aer import AerSimulator
+from qiskit.visualization import plot_histogram
+import matplotlib.pyplot as plt
+qc=QuantumCircuit(3,3)
+qc.h(0)
+qc.x(1)
+qc.h(2)
+qc.h(1)
+qc.measure(2,2)
+qc.cx(0,1)
+qc.measure(0,0)
+qc.measure(1,1)
+
+qc.draw('mpl')
+
+
+//18 
+
+
+from qiskit import QuantumCircuit,transpile
+from qiskit_aer import AerSimulator
+from qiskit.visualization import plot_histogram
+import matplotlib.pyplot as plt
+qc=QuantumCircuit(3,3)
+qc.h(1)
+
+qc.h(2)
+qc.cx(1,0)
+qc.cx(1,0)
+qc.h(1)
+qc.cy(1,2)
+qc.cx(1,0)
+
+qc.draw('mpl')
+
+-------------------------
+
+#SHOR ALGO
+
+!pip install qiskit qiskit-aer qiskit-ibm-runtime matplotlib pylatexenc numpy scipy
+
+
+from qiskit import QuantumCircuit
+from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
+from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2,Sampler
+from qiskit.visualization import plot_histogram
+from qiskit_aer import Aer
+import matplotlib.pyplot as plt
+
+def intialize_qubits(given_circuit,n,m):
+  given_circuit.h(range(n))
+  given_circuit.h(n+m-1)
+  given_circuit.draw("mpl")
+  
+def c_amod15(a,x):
+  if a not in [2,7,8,11,13]:
+    raise ValueError("’a’ must be 2,7,8,11,13")
+  U = QuantumCircuit(4)
+  for iteration in range(x):
+    if a in [2,13]:
+      U.swap(0,1)
+      U.swap(1,2)
+      U.swap(2,3)
+    if a in [7,8]:
+      U.swap(2,3)
+      U.swap(1,2)
+      U.swap(0,1)
+    if a == 11:
+      U.swap(1,3)
+      U.swap(0,2)
+    if a in [7,11]:
+      for q in range(4):
+        U.x(q)
+  U=U.to_gate()
+  U.name = "%i^%i mod 15" % (a, x)
+  c_U = U.control()
+  return c_U
+  
+def modular_exponentiation(circuit, n, m, a):
+  for x in range(n):
+    exponent=2**x
+    circuit.append(c_amod15(a,exponent),[x]+list(range(n,n+m)))
+
+from qiskit.circuit.library import QFT
+
+def inverse_qft(circuit, measurement_qubits):
+  circuit.append(QFT( len(measurement_qubits),do_swaps=False).inverse(), measurement_qubits)
+
+def shors_algorithm(n, m, a):
+  qc = QuantumCircuit(n+m, n)
+  intialize_qubits(qc, n, m)
+  qc.barrier()
+  modular_exponentiation(qc, n, m, a)
+  qc.barrier()
+  inverse_qft(qc, range(n))
+  qc.measure(range(n), range(n))
+  qc.draw("mpl")
+  return qc
+  
+n = 4; m = 4; a = 7
+final_circuit = shors_algorithm(n, m, a)
+final_circuit.draw("mpl")
+
+from qiskit import transpile
+final_circuit = transpile(final_circuit, Aer.get_backend('aer_simulator'))
+
+aer_sim = Aer.get_backend('aer_simulator')
+results = aer_sim.run(final_circuit).result()
+answer = results.get_counts()
+plot_histogram(answer)
+
+//////////////////////////
+
+#GROVERS
+
+!pip install qiskit qiskit-aer qiskit-ibm-runtime matplotlib pylatexenc numpy scipy
+
+
+from qiskit import QuantumCircuit
+from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
+from qiskit_ibm_runtime import QiskitRuntimeService, SamplerV2 as Sampler
+from qiskit.visualization import plot_histogram
+from qiskit_ibm_runtime import QiskitRuntimeService
+QiskitRuntimeService.save_account(channel="ibm_quantum", token="669fd996ffa80a6f6a4e76da670ba382b03ff06249ae030248b4365a1373ad140b64ddf46f55ae5afef54e482d1ddd9113a1af5d2d8554bd6bc22274c1df8821",
+overwrite=True,
+set_as_default=True)
+service = QiskitRuntimeService(channel="ibm_quantum")
+from qiskit_ibm_runtime import QiskitRuntimeService
+service = QiskitRuntimeService()
+backend = service.least_busy(operational=True, simulator=False, min_num_qubits=127)
+n = 2
+grover_circuit = QuantumCircuit(n, n)
+
+def initialize_s(qc, qubits):
+    """Apply a H-gate to ‘qubits’ in qc"""
+    for q in qubits:
+        qc.h(q)
+    return qc
+grover_circuit = initialize_s(grover_circuit, [0, 1])
+grover_circuit.cz(0, 1)  # Oracle
+#Diffusion operator
+grover_circuit.h([1, 0])
+grover_circuit.z([0, 1])
+grover_circuit.cz(0, 1)
+grover_circuit.h([0, 1])
+grover_circuit.measure_all()
+grover_circuit.draw('mpl')
+#Simulator
+from qiskit_aer import Aer
+sv_sim=Aer.get_backend('statevector_simulator')
+result=sv_sim.run(grover_circuit).result()
+statevec=result.get_statevector()
+print(statevec)
+from qiskit.visualization import array_to_latex
+array_to_latex(statevec,prefix="|\\psi\\rangle=")
+grover_circuit.measure_all()
+qasm_sim=Aer.get_backend('qasm_simulator')
+result=qasm_sim.run(grover_circuit).result()
+counts=result.get_counts()
+plot_histogram(counts)
+#Running on backend
+pm=generate_preset_pass_manager(backend=backend,optimization_level=1)
+isa_circuit=pm.run(grover_circuit)
+sampler = Sampler(backend)
+job = sampler.run([isa_circuit])
+result = job.result()
+count=result[0].data.meas.get_counts()
+print(f" > Counts: {count}")
+plot_histogram(count)
+
+//////////////////////////
+
+#DJ
+
+!pip install qiskit qiskit-aer qiskit-ibm-runtime matplotlib pylatexenc numpy scipy
+
+
+from qiskit_ibm_runtime import QiskitRuntimeService
+from qiskit import QuantumCircuit
+from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
+from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2,Sampler
+from qiskit.visualization import plot_histogram
+from qiskit_aer import Aer
+import matplotlib.pyplot as plt
+QiskitRuntimeService.save_account(channel="ibm_quantum", token="669fd996ffa80a6f6a4e76da670ba382b03ff06249ae030248b4365a1373ad140b64ddf46f55ae5afef54e482d1ddd9113a1af5d2d8554bd6bc22274c1df8821",
+overwrite=True,
+set_as_default=True)
+def deutsch_jozsa_orcle(qc):
+  qc.cx(0,2)#Cnot
+  qc.cx(1,2)#Another CNOT
+def deutsch_jozsa_algo():
+  qc=QuantumCircuit(3,2)
+  qc.x(0)
+  qc.x(2)
+  qc.barrier()
+  qc.h([0,1,2])
+  qc.barrier()
+  deutsch_jozsa_orcle(qc)
+  qc.barrier()
+  qc.h([0,1])
+  qc.barrier()
+  qc.measure([0,1],[0,1])
+  return qc
+qc=deutsch_jozsa_algo()
+qc.draw("mpl")
+aer_sim=Aer.get_backend('aer_simulator')
+results=aer_sim.run(qc).result()
+plot_histogram(results.get_counts())
+from qiskit import transpile
+qc_transpiled=transpile(qc,backend=backend,optimization_level=1)
+pm=generate_preset_pass_manager(backend=backend,optimization_level=1)
+isa_circuit=pm.run(qc_transpiled)
+sampler=Sampler(backend)
+job=sampler.run([isa_circuit])
+result=job.result()
+count=result[0].data.c.get_counts()
+print("Count:",count)
+plot_histogram(count)
+
+//////////////////////////////
+
+#DEUTSCH
+
+!pip install qiskit qiskit-aer qiskit-ibm-runtime matplotlib pylatexenc numpy scipy
+
+from qiskit_ibm_runtime import QiskitRuntimeService
+from qiskit import QuantumCircuit
+from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
+from qiskit_ibm_runtime import QiskitRuntimeService,SamplerV2,Sampler
+from qiskit.visualization import plot_histogram
+from qiskit_aer import Aer
+import matplotlib.pyplot as plt
+QiskitRuntimeService.save_account(channel="ibm_quantum", token="669fd996ffa80a6f6a4e76da670ba382b03ff06249ae030248b4365a1373ad140b64ddf46f55ae5afef54e482d1ddd9113a1af5d2d8554bd6bc22274c1df8821",
+overwrite=True,
+set_as_default=True)
+service = QiskitRuntimeService(channel="ibm_quantum")
+Service=QiskitRuntimeService()
+backend=Service.least_busy(operational=True,simulator=False,min_num_qubits=127)
+import numpy as np
+def deutsch_alogo(oracle):
+  circuit=QuantumCircuit(2,1)
+  circuit.x(1)
+  circuit.h([0,1])
+  circuit.barrier()
+  if oracle:
+    circuit=circuit.compose(oracle)
+  circuit.barrier()
+  circuit.h(0)
+  circuit.measure(0,0)
+  circuit.draw("mpl")
+  return circuit
+def constant_0():
+  circuit=QuantumCircuit(2,1)
+  return circuit
+def constant_1():
+  circuit = QuantumCircuit(2, 1)
+  circuit.x(1)
+  return circuit
+def balanced_x():
+  circuit=QuantumCircuit(2,1)
+  circuit.cx(0,1)
+  return circuit
+def balanced_not_x():
+  circuit=QuantumCircuit(2,1)
+  circuit.cx(0,1)
+  circuit.x(1)
+  return circuit
+deutsch_alogo(balanced_not_x()).draw("mpl")
+from qiskit_aer import Aer
+import matplotlib.pyplot as plt
+for f in [constant_0,constant_1,balanced_x,balanced_not_x]:
+  qc=deutsch_alogo(f())
+aer_sim=Aer.get_backend("aer_simulator")
+result=aer_sim.run(qc).result()
+answer=result.get_counts()
+plot_histogram(answer)
+import matplotlib.pyplot as plt
+from qiskit import transpile
+for f in [constant_0,constant_1,balanced_x,balanced_not_x]:
+  qc=deutsch_alogo(f())
+aer_sim=Aer.get_backend("aer_simulator")
+transpiled_qc=transpile(qc,aer_sim)
+results=aer_sim.run(transpiled_qc).result()
+answer=results.get_counts()
+histogran=plot_histogram(answer)
+plt.show()
+qc=deutsch_alogo(balanced_x())
+qc_transpiled = transpile(qc, backend, optimization_level=2)
+pm = generate_preset_pass_manager(backend=backend, optimization_level=1)
+isa_circuit=pm.run(qc_transpiled)
+sampler=SamplerV2(backend)
+job = sampler.run([isa_circuit])
+result = job.result()
+count=result[0].data.c.get_counts()
+print(f" > Counts: {count}")
+plot_histogram(count)
+
+///////////////////////////
+
+#QKD
+
+!pip install qiskit qiskit-aer qiskit-ibm-runtime matplotlib pylatexenc numpy scipy
+
+
+from qiskit_ibm_runtime import QiskitRuntimeService
+from qiskit import QuantumCircuit,ClassicalRegister, QuantumRegister
+from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
+from qiskit_ibm_runtime import QiskitRuntimeService, SamplerV2 as Sampler
+from qiskit.visualization import plot_histogram
+from qiskit_aer import Aer
+import matplotlib.pyplot as plt
+import numpy as np
+from qiskit.qasm3 import dumps
+# IBM Quantum channel; set to default
+QiskitRuntimeService.save_account(channel="ibm_quantum", token="669fd996ffa80a6f6a4e76da670ba382b03ff06249ae030248b4365a1373ad140b64ddf46f55ae5afef54e482d1ddd9113a1af5d2d8554bd6bc22274c1df8821",overwrite=True,set_as_default=True)
+service = QiskitRuntimeService(channel="ibm_quantum")
+service = QiskitRuntimeService()
+backend = service.least_busy(operational=True, simulator=False,min_num_qubits=127)
+n = 16 # for a local backend n can go as up as 23, after that it raises a Memory Error
+qr = QuantumRegister(n, name='qr')
+cr = ClassicalRegister(n, name='cr')
+alice = QuantumCircuit(qr, cr, name='Alice')
+alice_key = np.random.randint(0, high=2**n)
+alice_key = np.binary_repr(alice_key, n) 
+for index, digit in enumerate(alice_key):
+    if digit == '1':
+        alice.x(qr[index]) 
+alice_table = [] # Create empty basis table
+for index in range(len(qr)): # BUG: enumerate(q) raises an out of range error
+    if 0.5 < np.random.random(): # With 50% chance...
+        alice.h(qr[index]) # ...change to diagonal basis
+        alice_table.append('X') # character for diagonal basis
+    else:
+        alice_table.append('Z') # character for computational basis
+def SendState(qc1, qc2, qc1_name, qr, cr): 
+    try:
+        qs = dumps(qc1).split(sep=';')[4:-1]
+    except AttributeError:
+        qs = qc1.export_openqasm().split(sep=';')[4:-1]
+
+    for index, instruction in enumerate(qs):
+        qs[index] = instruction.lstrip()
+    # Parse the instructions and apply to new circuit
+    for instruction in qs:
+        if instruction[0] == 'x': # Corrected quotation marks
+            old_qr = int(instruction[5:-1])
+            qc2.x(qr[old_qr])
+        elif instruction[0] == 'h': # Corrected quotation marks
+            old_qr = int(instruction[5:-1])
+            qc2.h(qr[old_qr])
+        elif instruction[0] == 'm': # exclude measuring:
+            pass
+        else:
+            raise Exception('Unable to parse instruction') # Corrected quotation marks
+
+bob = QuantumCircuit(qr, cr, name='Bob') # Corrected quotation marks
+SendState(alice, bob, 'Alice', qr, cr) # Corrected quotation marks and passed qr, cr
+# Bob doesn't know which basis to use
+bob_table = []
+for index in range(len(qr)):
+    if 0.5 < np.random.random(): # With 50% chance...
+        bob.h(qr[index]) # ...change to diagonal basis
+        bob_table.append('X') # Corrected quotation marks
+    else:
+        bob_table.append('Z') # Corrected quotation marks
+# Measure all qubits
+for index in range(len(qr)):
+    bob.measure(qr[index], cr[index])
+aer_sim = Aer.get_backend('qasm_simulator') # Corrected quotation marks
+results = aer_sim.run(bob,shots=1).result()
+answer = results.get_counts()
+plot_histogram(answer)
+
+keep = []
+discard = []
+for qubit, basis in enumerate(zip(alice_table, bob_table)):
+    if basis[0] == basis[1]:
+        print("Same choice for qubit: {}, basis: {}" .format(qubit, basis[0]))
+        keep.append(qubit)
+    else:
+        print("Different choice for qubit: {}, Alice has {}, Bob has {}" .format(qubit, basis[0], basis[1]))
+        discard.append(qubit)
